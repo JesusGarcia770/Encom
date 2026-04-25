@@ -1,21 +1,18 @@
 import './AboutUs.css'
 import Footer from '../../Components/public/Footer'
+import Hero from '../../Components/public/Hero'
+
 export default function AboutUs() {
   return (
     <div className="about-page">
 
-      <div className="about-hero">
-        <div className="about-hero-text">
-          <span className="about-badge">Nuestra historia</span>
-          <h1>Quiénes somos</h1>
-          <p>
-            ENCOM es una empresa salvadoreña especializada en la venta de electrodomésticos
-            y tecnología para el hogar. Nos enfocamos en ofrecer productos innovadores,
-            eficientes y confiables que mejoran la calidad de vida de nuestros clientes.
-          </p>
-        </div>
-        <div className="about-logo-big">ENCOM</div>
-      </div>
+      <Hero
+        badge="Nuestra historia"
+        titleLine1="Quiénes somos"
+        subtitle="ENCOM es una empresa salvadoreña especializada en la venta de electrodomésticos y tecnología para el hogar. Nos enfocamos en ofrecer productos innovadores, eficientes y confiables que mejoran la calidad de vida de nuestros clientes."
+        primaryBtn={{ label: 'Ver productos', to: '/' }}
+        secondaryBtn={{ label: 'Contáctanos', to: '/contact' }}
+      />
 
       <div className="about-cards">
         <div className="about-card">

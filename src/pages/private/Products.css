@@ -1,0 +1,311 @@
+/* ===== PAGES CON TABLAS (Products / Categories / etc) ===== */
+.products-page,
+.categories-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* SEARCH BAR */
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 360px;
+}
+
+.search-bar svg {
+  position: absolute;
+  left: 14px;
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  color: #e6e9f0;
+  font-size: 13px;
+  outline: none;
+}
+
+.search-bar input:focus {
+  border-color: #4d8eff;
+}
+
+.search-bar input::placeholder {
+  color: #6b7280;
+}
+
+/* TABLE CARD */
+.table-card {
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background: #0f1420;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+  border-bottom: 1px solid #1c2333;
+}
+
+.data-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #d1d5db;
+  border-bottom: 1px solid #1c2333;
+  vertical-align: middle;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover td {
+  background: rgba(77, 142, 255, 0.03);
+}
+
+/* CELDA DE PRODUCTO */
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.product-thumb {
+  width: 36px;
+  height: 36px;
+  background: #0d1220;
+  border: 1px solid #1c2333;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.product-thumb svg {
+  width: 18px;
+  height: 18px;
+}
+
+.product-cell strong {
+  display: block;
+  color: #fff;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.product-cell span {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+/* ACCIONES */
+.actions-cell {
+  display: flex;
+  gap: 6px;
+}
+
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.act-view {
+  background: rgba(77, 142, 255, 0.15);
+  color: #4d8eff;
+}
+
+.act-view:hover {
+  background: rgba(77, 142, 255, 0.25);
+}
+
+.act-edit {
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+}
+
+.act-edit:hover {
+  background: rgba(251, 146, 60, 0.25);
+}
+
+.act-delete {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.act-delete:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+/* PAGINATION */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: #6b7280;
+  border-top: 1px solid #1c2333;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.page-btn {
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: 1px solid #1c2333;
+  border-radius: 7px;
+  color: #9ca3af;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.page-btn:hover {
+  background: #1a2030;
+  color: #e6e9f0;
+}
+
+.page-btn.active {
+  background: linear-gradient(135deg, #4d8eff, #2563eb);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* PAGE HEADER */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-header h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.page-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* BOTONES HEADER */
+.btn-primary {
+  padding: 9px 18px;
+  background: linear-gradient(135deg, #4d8eff, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-export {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  color: #d1d5db;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.btn-export:hover {
+  border-color: #4d8eff;
+  color: #fff;
+}
+
+.btn-export svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* PILLS DE ESTADO */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pill-entregado,
+.pill-activo {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.pill-cancelado {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.pill-enviado {
+  background: rgba(77, 142, 255, 0.15);
+  color: #4d8eff;
+}
+
+.pill-inactivo {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
+
+/* ORDER ID / PAYMENT ID */
+.order-id {
+  color: #4d8eff;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.payment-id {
+  color: #9ca3af;
+  font-family: monospace;
+  font-size: 13px;
+}

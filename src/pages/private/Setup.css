@@ -1,0 +1,236 @@
+/* ===== AUTH PAGES (Setup + Login Admin) ===== */
+.auth-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(77, 142, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    #0a0e1a;
+  color: #e6e9f0;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 32px;
+  position: relative;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 80px;
+}
+
+.auth-brand .brand-logo {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #4d8eff, #2563eb);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+}
+
+.auth-brand .brand-text h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.auth-brand .brand-text span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.auth-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* ===== INFO LATERAL ===== */
+.auth-info h1 {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 0 0 24px;
+  color: #fff;
+}
+
+.auth-info .accent {
+  color: #4d8eff;
+}
+
+.auth-info p {
+  color: #9ca3af;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  max-width: 380px;
+}
+
+.auth-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+.auth-features .dot {
+  width: 8px;
+  height: 8px;
+  background: #4d8eff;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===== CARD DEL FORM ===== */
+.auth-card {
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auth-badge {
+  align-self: flex-start;
+  padding: 6px 14px;
+  background: rgba(77, 142, 255, 0.12);
+  border: 1px solid rgba(77, 142, 255, 0.3);
+  border-radius: 999px;
+  color: #4d8eff;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.auth-card h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.auth-subtitle {
+  margin: -10px 0 8px;
+  color: #9ca3af;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: #d1d5db;
+  font-weight: 500;
+}
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon svg {
+  position: absolute;
+  left: 14px;
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+.input-icon input {
+  width: 100%;
+  padding: 11px 14px 11px 40px;
+  background: #0d1220;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  color: #e6e9f0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input-icon input:focus {
+  border-color: #4d8eff;
+}
+
+.input-icon input::placeholder {
+  color: #4b5563;
+}
+
+.auth-btn {
+  margin-top: 8px;
+  padding: 12px;
+  background: linear-gradient(135deg, #4d8eff, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.15s;
+}
+
+.auth-btn:hover {
+  box-shadow: 0 4px 20px rgba(77, 142, 255, 0.3);
+}
+
+.auth-btn:active {
+  transform: scale(0.98);
+}
+
+.auth-error {
+  margin: -4px 0 0;
+  color: #f87171;
+  font-size: 13px;
+}
+
+.auth-forgot-link {
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.auth-forgot-link:hover {
+  color: #4d8eff;
+}
+
+@media (max-width: 900px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .auth-info h1 {
+    font-size: 40px;
+  }
+}

@@ -1,0 +1,32 @@
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-field label {
+  font-size: 13px;
+  color: #d1d5db;
+  font-weight: 500;
+}
+
+.admin-field input {
+  padding: 10px 14px;
+  background: #0d1220;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  color: #e6e9f0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-field input:focus {
+  border-color: #4d8eff;
+}
+
+.admin-field input::placeholder {
+  color: #4b5563;
+}

@@ -1,0 +1,252 @@
+/* ===== LAYOUT BASE ===== */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0e1a;
+  color: #e6e9f0;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ===== SIDEBAR ===== */
+.admin-sidebar {
+  width: 260px;
+  background: #0d1220;
+  border-right: 1px solid #1c2333;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px 24px;
+  border-bottom: 1px solid #1c2333;
+  margin-bottom: 20px;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #4d8eff, #2563eb);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+.brand-text h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brand-text span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  color: #9ca3af;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.nav-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.nav-item:hover {
+  background: #151b2c;
+  color: #e6e9f0;
+}
+
+.nav-item.active {
+  background: rgba(77, 142, 255, 0.12);
+  color: #4d8eff;
+}
+
+.sidebar-logout {
+  margin: 20px 12px 0;
+  padding: 12px 14px;
+  background: transparent;
+  border: 1px solid #1c2333;
+  border-radius: 8px;
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.15s;
+}
+
+.sidebar-logout:hover {
+  background: #151b2c;
+  color: #e6e9f0;
+}
+
+.sidebar-logout svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== MAIN ===== */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ===== TOP BAR ===== */
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: #0a0e1a;
+  border-bottom: 1px solid #1c2333;
+  gap: 24px;
+}
+
+.topbar-search {
+  flex: 1;
+  max-width: 480px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-search svg {
+  position: absolute;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  color: #6b7280;
+}
+
+.topbar-search input {
+  width: 100%;
+  padding: 10px 16px 10px 44px;
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  color: #e6e9f0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.topbar-search input:focus {
+  border-color: #4d8eff;
+}
+
+.topbar-search input::placeholder {
+  color: #6b7280;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar-bell {
+  width: 40px;
+  height: 40px;
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.topbar-bell:hover {
+  color: #e6e9f0;
+}
+
+.topbar-bell svg {
+  width: 18px;
+  height: 18px;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.topbar-user:hover {
+  background: #131825;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-info strong {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-info span {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+/* ===== CONTENT AREA ===== */
+.admin-content {
+  flex: 1;
+  padding: 28px 32px;
+}

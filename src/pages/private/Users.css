@@ -1,0 +1,33 @@
+.user-avatar-cell {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4d8eff, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.pill-admin {
+  background: rgba(77, 142, 255, 0.15);
+  color: #4d8eff;
+}
+
+.pill-editor {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.pill-cliente {
+  background: rgba(156, 163, 175, 0.12);
+  color: #9ca3af;
+}
+
+.pill-inactivo {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}

@@ -1,0 +1,119 @@
+.hero {
+  background: linear-gradient(135deg, #001A4D 0%, #0057D9 65%, #0080FF 100%);
+  padding: 10px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  min-height: 80vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+
+.hero-content { flex: 1; z-index: 1; }
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 18px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.hero-title {
+  font-size: 70px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.hero-accent { color: #7DC6FF; }
+
+.hero-sub {
+  font-size: 20px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 30px;
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-hero-primary {
+  background: #fff;
+  color: #0057D9;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 11px 26px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-hero-primary:hover { background: #e8f0ff; }
+
+.btn-hero-outline {
+  background: transparent;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 11px 26px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-hero-outline:hover { background: rgba(255,255,255,0.1); }
+
+.hero-visual {
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.hero-phone-mock {
+  width: 550px;
+  height: 850px;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-phone-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 60px rgba(0, 100, 255, 0.4));
+}
+
+.hero-logo-display {
+  font-size: 100px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.08);
+  letter-spacing: 12px;
+  user-select: none;
+  margin-right: 60px;
+}

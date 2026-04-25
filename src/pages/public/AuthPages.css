@@ -1,20 +1,23 @@
 .auth-page {
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f7fb;
+  background:
+    radial-gradient(ellipse at 15% 25%, #dbeafe 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 75%, #EEF4FF 0%, transparent 45%),
+    #f8faff;
   padding: 40px 16px;
 }
 
 .auth-card {
   background: #fff;
   border-radius: 20px;
-  border: 1px solid #e8eaf0;
+  border: 1px solid #e0e7ff;
   padding: 40px 48px;
   width: 100%;
   max-width: 520px;
-  box-shadow: 0 4px 32px rgba(0,87,217,0.06);
+  box-shadow: 0 8px 40px rgba(0, 87, 217, 0.1);
 }
 
 .auth-logo {
@@ -31,7 +34,6 @@
   font-weight: 700;
   color: #1a1a2e;
   text-align: center;
-  margin-bottom: 6px;
 }
 
 .auth-sub {

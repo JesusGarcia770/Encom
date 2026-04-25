@@ -15,14 +15,6 @@ export default function Nav() {
       <nav className="navbar">
         <Link to="/" className="nav-logo">ENCOM</Link>
 
-        <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
-          <Link to="/" className="">Monitores</Link>
-          <Link to="/" className="">Accesorios</Link>
-          <Link to="/" className="">Ventas especiales</Link>
-          <Link to="/" className="">Arma tu combo</Link>
-        </div>
-
         <div className="nav-icons">
           <button className="icon-btn" aria-label="Buscar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">

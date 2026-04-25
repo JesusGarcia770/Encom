@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
+import FormField from '../../Components/public/FormField'
 import './AuthPages.css'
 
 export default function Login() {
   const [showPass, setShowPass] = useState(false)
   const [form, setForm] = useState({ email: '', password: '' })
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
   return (
     <div className="auth-page">
@@ -13,24 +15,16 @@ export default function Login() {
         <h1 className="auth-title">Inicio de sesión</h1>
         <p className="auth-sub">Bienvenido de vuelta</p>
 
-        <div className="form-group">
-          <label>Correo electrónico</label>
-          <input
-            type="email"
-            placeholder="correo@ejemplo.com"
-            value={form.email}
-            onChange={e => setForm({ ...form, email: e.target.value })}
-          />
-        </div>
+        <FormField label="Correo electrónico" name="email" value={form.email} onChange={handleChange} type="email" placeholder="correo@ejemplo.com" />
 
-        <div className="form-group">
-          <label>Contraseña</label>
+        <FormField label="Contraseña">
           <div className="input-icon">
             <input
               type={showPass ? 'text' : 'password'}
-              placeholder="••••••••"
+              name="password"
               value={form.password}
-              onChange={e => setForm({ ...form, password: e.target.value })}
+              onChange={handleChange}
+              placeholder="••••••••"
             />
             <button className="eye-btn" onClick={() => setShowPass(!showPass)} type="button">
               {showPass
@@ -39,16 +33,16 @@ export default function Login() {
               }
             </button>
           </div>
-        </div>
+        </FormField>
 
         <div className="auth-row">
-          <a className="auth-link">¿Olvidaste tu contraseña? <span>Recuperar</span></a>
+          <Link to="/forgot-password" className="auth-link">¿Olvidaste tu contraseña? <span>Recuperar</span></Link>
         </div>
 
         <button className="btn-auth">Iniciar sesión</button>
 
         <p className="auth-switch">
-          ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
+          ¿No tienes una cuenta? <Link to="/Register">Regístrate</Link>
         </p>
       </div>
     </div>

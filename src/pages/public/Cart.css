@@ -5,7 +5,8 @@
 }
 
 .cart-container {
-  max-width: 1100px;
+  max-width: 100%;
+  padding: 10px;
   margin: 0 auto;
 }
 
@@ -41,7 +42,7 @@
 .cart-layout {
   display: grid;
   grid-template-columns: 1fr 300px;
-  gap: 20px;
+  gap: 40px;
   align-items: start;
 }
 
@@ -55,7 +56,7 @@
 
 .items-header {
   display: grid;
-  grid-template-columns: 28px 64px 1fr 80px 100px 80px 36px;
+  grid-template-columns: 1fr 80px 100px 125px;
   align-items: center;
   padding: 12px 20px;
   background: #f5f7fb;
@@ -183,7 +184,7 @@
 }
 
 .cart-summary h2 {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: #1a1a2e;
   margin-bottom: 20px;
@@ -192,9 +193,9 @@
 .summary-row {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 15px;
   color: #555;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .free-ship { color: #16a34a; font-weight: 600; }
@@ -206,7 +207,7 @@
 }
 
 .summary-total {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: #1a1a2e;
 }
@@ -214,7 +215,7 @@
 .btn-checkout {
   width: 100%;
   padding: 13px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   background: #0057D9;
   color: #fff;
@@ -230,13 +231,13 @@
 .pay-methods {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11px;
+  gap: 10px;
+  font-size: 14px;
   color: #aaa;
 }
-.pay-icons { display: flex; gap: 6px; }
+.pay-icons { display: flex; gap: 10px; }
 .pay-badge {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   padding: 3px 7px;
   background: #f0f4ff;

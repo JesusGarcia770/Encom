@@ -1,0 +1,316 @@
+/* ===== DASHBOARD ===== */
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* HEADER */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.page-header p {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-secondary,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #1c2333;
+  transition: all 0.15s;
+}
+
+.btn-secondary {
+  background: #131825;
+  color: #d1d5db;
+}
+
+.btn-secondary:hover {
+  background: #1a2030;
+}
+
+.btn-secondary svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4d8eff, #2563eb);
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 4px 14px rgba(77, 142, 255, 0.3);
+}
+
+/* MÉTRICAS */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.metric-card {
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.metric-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-blue { background: rgba(77, 142, 255, 0.15); color: #4d8eff; }
+.icon-teal { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }
+.icon-purple { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+.icon-orange { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+
+.metric-label {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.metric-value {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.metric-change {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.metric-change.up {
+  color: #10b981;
+}
+
+/* GRÁFICO + RECIENTES */
+.chart-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.chart-card {
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.chart-card h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.recent-orders {
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.recent-header h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.recent-header a {
+  color: #4d8eff;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.recent-cols {
+  display: grid;
+  grid-template-columns: 1fr 70px 110px;
+  font-size: 9px;
+  color: #6b7280;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 3px 0;
+  border-bottom: 1px solid #1c2333;
+}
+
+.recent-cols span:first-child {
+  visibility: hidden;
+}
+
+.recent-row {
+  display: grid;
+  grid-template-columns: 1fr 70px 110px;
+  align-items: center;
+  padding: 0px 0;
+  font-size: 9px;
+  border-bottom: 1px solid #1c2333;
+}
+
+.recent-row:last-child {
+  border-bottom: none;
+}
+
+.recent-row strong {
+  display: block;
+  color: #e6e9f0;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.recent-row .muted {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+/* PILLS DE ESTADO */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.pill-completado {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.pill-pendiente {
+  background: rgba(251, 191, 36, 0.12);
+  color: #fbbf24;
+}
+
+.pill-enviado {
+  background: rgba(77, 142, 255, 0.12);
+  color: #4d8eff;
+}
+
+.pill-fallida {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.pill-activo {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.pill-inactivo {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+/* PAGOS */
+.payments-card {
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.payments-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #1c2333;
+}
+
+.payments-table td {
+  padding: 12px;
+  font-size: 13px;
+  color: #d1d5db;
+  border-bottom: 1px solid #1c2333;
+}
+
+.payments-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* CHART ENHANCEMENTS */
+.chart-point-group {
+  cursor: pointer;
+}
+
+.chart-dot-outer {
+  transition: fill-opacity 0.25s ease;
+}
+
+.chart-point-group:hover .chart-dot-outer {
+  fill-opacity: 0.28;
+}

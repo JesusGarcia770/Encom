@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 import ProductCard from '../../Components/public/ProductCard'
 import Footer from '../../components/public/Footer'
+import Hero from '../../Components/public/Hero'
 import samsungImg from '../../assets/image.png'
 import './Home.css'
 
@@ -188,33 +189,17 @@ export default function Home() {
   return (
     <main className="home">
 
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-content">
-          <span className="hero-badge">Nuevo en ENCOM</span>
-          <h1 className="hero-title">
-            Tecnología que<br />
-            <span className="hero-accent">transforma</span> tu vida
-          </h1>
-          <p className="hero-sub">
-            Los mejores smartphones, monitores y accesorios.<br />
-            Calidad premium con precios accesibles para El Salvador.
-          </p>
-          <div className="hero-btns">
-            <button className="btn-hero-primary">Ver productos</button>
-            <button className="btn-hero-outline">Ventas especiales</button>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="hero-phone-mock">
-          <img
-          src={samsungImg}
-          alt="Samsung Galaxy"
-          className="hero-phone-img"
-          />
-          </div>
-</div>
-      </section>
+      <Hero
+        badge="Nuevo en ENCOM"
+        titleLine1="Tecnología que"
+        accent="transforma"
+        titleLine2="tu vida"
+        subtitle="Los mejores smartphones, monitores y accesorios. Calidad premium con precios accesibles para El Salvador."
+        primaryBtn={{ label: 'Ver productos' }}
+        secondaryBtn={{ label: 'Ventas especiales' }}
+        imageSrc={samsungImg}
+        imageAlt="Samsung Galaxy"
+      />
 
       {/* FEATURES BAR */}
       <div className="features-bar">

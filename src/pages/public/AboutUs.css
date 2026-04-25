@@ -3,54 +3,6 @@
   background: #f5f7fb;
 }
 
-.about-hero {
- background: linear-gradient(135deg, #001A4D 0%, #0057D9 65%, #0080FF 100%);
-  padding: 10px 100px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  min-height: 80vh;
-  overflow: hidden;
-  position: relative;
-}
-
-.about-hero-text { flex: 1; }
-
-.about-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  font-size: 18px;
-  padding: 5px 14px;
-  border-radius: 20px;
-  margin-bottom: 18px;
-  letter-spacing: 0.5px;
-  border: 1px solid rgba(255,255,255,0.25);
-}
-
-.about-hero h1 {
-  font-size: 50px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 16px;
-}
-
-.about-hero > div > p {
-  font-size: 20px;
-  color: rgba(255,255,255,0.7);
-  line-height: 1.8;
-  max-width: 500px;
-}
-
-.about-logo-big {
-  font-size: 52px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.1);
-  letter-spacing: 8px;
-  flex-shrink: 0;
-}
-
 /* CARDS */
 .about-cards {
   display: grid;

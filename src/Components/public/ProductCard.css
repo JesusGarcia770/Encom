@@ -17,7 +17,7 @@
 .product-img-wrap {
   position: relative;
   height: 350px;
-  background: #f5f7fb;
+  background: #d6dce6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,7 +53,7 @@
 .product-img-placeholder svg {
   width: 80px;
   height: 80px;
-  stroke: #b0b8cc;
+  stroke: #3a65bb;
   fill: none;
   stroke-width: 1;
 }

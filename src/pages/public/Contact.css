@@ -2,6 +2,7 @@
   min-height: calc(100vh - 100px);
   background: #f5f7fb;
   padding: 48px 20px;
+  align-items: center;
 }
 
 .contact-container {
@@ -84,7 +85,7 @@
   background: #fff;
   border-radius: 20px;
   border: 1px solid #e8eaf0;
-  padding: 36px 32px;
+  padding: 60px 32px;
   box-shadow: 0 4px 24px rgba(0,87,217,0.05);
 }
 
