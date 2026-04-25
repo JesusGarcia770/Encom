@@ -1,5 +1,5 @@
 import './AboutUs.css'
-
+import Footer from '../../Components/public/Footer'
 export default function AboutUs() {
   return (
     <div className="about-page">
@@ -86,7 +86,10 @@ export default function AboutUs() {
             </div>
           ))}
         </div>
+        
       </div>
+      {/* FOOTER */}
+            <Footer />
 
     </div>
   )

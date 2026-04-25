@@ -42,7 +42,6 @@ export default function Cart() {
           <div className="cart-items">
             <div className="items-header">
               <span>Producto</span>
-              <span>Descripción</span>
               <span>Precio</span>
               <span>Cantidad</span>
               <span>Total</span>

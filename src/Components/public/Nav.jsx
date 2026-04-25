@@ -16,7 +16,7 @@ export default function Nav() {
         <Link to="/" className="nav-logo">ENCOM</Link>
 
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Móviles</Link>
+          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
           <Link to="/" className="">Monitores</Link>
           <Link to="/" className="">Accesorios</Link>
           <Link to="/" className="">Ventas especiales</Link>

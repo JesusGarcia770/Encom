@@ -4,12 +4,15 @@
 }
 
 .about-hero {
-  background: linear-gradient(135deg, #001A4D, #0057D9);
-  padding: 60px 60px;
+ background: linear-gradient(135deg, #001A4D 0%, #0057D9 65%, #0080FF 100%);
+  padding: 10px 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
+  min-height: 80vh;
+  overflow: hidden;
+  position: relative;
 }
 
 .about-hero-text { flex: 1; }
@@ -18,26 +21,26 @@
   display: inline-block;
   background: rgba(255,255,255,0.15);
   color: #fff;
-  font-size: 11px;
+  font-size: 18px;
   padding: 5px 14px;
   border-radius: 20px;
-  margin-bottom: 16px;
-  border: 1px solid rgba(255,255,255,0.25);
+  margin-bottom: 18px;
   letter-spacing: 0.5px;
+  border: 1px solid rgba(255,255,255,0.25);
 }
 
 .about-hero h1 {
-  font-size: 36px;
+  font-size: 50px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 16px;
 }
 
 .about-hero > div > p {
-  font-size: 14px;
+  font-size: 20px;
   color: rgba(255,255,255,0.7);
   line-height: 1.8;
-  max-width: 480px;
+  max-width: 500px;
 }
 
 .about-logo-big {
@@ -53,8 +56,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  padding: 36px 48px;
-  max-width: 1100px;
+  padding: 36px 30px;
+  max-width: 2000px;
   margin: 0 auto;
 }
 
@@ -68,8 +71,8 @@
 .about-card:hover { box-shadow: 0 4px 20px rgba(0,87,217,0.08); }
 
 .about-card-icon {
-  width: 44px;
-  height: 44px;
+  width: 60px;
+  height: 60px;
   background: #EEF4FF;
   border-radius: 12px;
   display: flex;
@@ -80,13 +83,13 @@
 .about-card-icon svg { width: 22px; height: 22px; }
 
 .about-card h3 {
-  font-size: 16px;
+  font-size: 30px;
   font-weight: 700;
   color: #1a1a2e;
   margin-bottom: 10px;
 }
 .about-card p {
-  font-size: 13px;
+  font-size: 15px;
   color: #666;
   line-height: 1.7;
 }
@@ -106,7 +109,7 @@
   background: #fff;
   border-radius: 20px;
   border: 1px solid #e8eaf0;
-  height: 260px;
+  height: 370px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,7 +118,7 @@
 .about-img-placeholder svg { width: 70%; height: 70%; }
 
 .about-values h2 {
-  font-size: 22px;
+  font-size: 35px;
   font-weight: 700;
   color: #1a1a2e;
   margin-bottom: 24px;
@@ -138,13 +141,13 @@
 }
 
 .value-label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: #1a1a2e;
   margin-bottom: 3px;
 }
 .value-desc {
-  font-size: 13px;
+  font-size: 15px;
   color: #666;
   line-height: 1.5;
 }

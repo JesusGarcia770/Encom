@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
-import ProductCard from '../Components/ProductCard'
+import ProductCard from '../../Components/public/ProductCard'
+import Footer from '../../components/public/Footer'
+import samsungImg from '../../assets/image.png'
 import './Home.css'
 
 const PhoneIcon = () => (
@@ -205,15 +207,13 @@ export default function Home() {
         </div>
         <div className="hero-visual">
           <div className="hero-phone-mock">
-            <div className="hero-phone-screen">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#7DC6FF" strokeWidth="0.8">
-                <rect x="5" y="2" width="14" height="20" rx="3"/>
-                <circle cx="12" cy="17" r="1"/>
-                <line x1="9" y1="6" x2="15" y2="6"/>
-              </svg>
-            </div>
+          <img
+          src={samsungImg}
+          alt="Samsung Galaxy"
+          className="hero-phone-img"
+          />
           </div>
-        </div>
+</div>
       </section>
 
       {/* FEATURES BAR */}
@@ -295,39 +295,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <div className="footer-logo">ENCOM</div>
-            <p className="footer-tagline">Tecnología que transforma tu vida.<br />El Salvador y Centroamérica.</p>
-          </div>
-          <div className="footer-col">
-            <h4>Productos</h4>
-            <a>Smartphones</a>
-            <a>Tablets</a>
-            <a>Monitores</a>
-            <a>Accesorios</a>
-            <a>Laptops</a>
-          </div>
-          <div className="footer-col">
-            <h4>Empresa</h4>
-            <Link to="/about">Quiénes somos</Link>
-            <a>Misión y visión</a>
-            <Link to="/contact">Contacto</Link>
-          </div>
-          <div className="footer-col">
-            <h4>Contacto</h4>
-            <a>Encom@gmail.com</a>
-            <a>8879-0485</a>
-            <a>Blvd 277, altos towers</a>
-            <a>San Salvador, SV</a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2025 ENCOM. Todos los derechos reservados.</p>
-          <p>Hecho en El Salvador 🇸🇻</p>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }

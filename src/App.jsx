@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router'
-import Nav from './Components/Nav'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Cart from './pages/Cart'
-import Contact from './pages/Contact'
-import AboutUs from './pages/AboutUs'
+import Nav from './Components/public/Nav'
+import Home from './pages/public/Home'
+import Login from './pages/public/Login'
+import Register from './pages/public/Register'
+import Cart from './pages/public/Cart'
+import Contact from './pages/public/Contact'
+import AboutUs from './pages/public/AboutUs'
  
 export default function App() {
   return (
