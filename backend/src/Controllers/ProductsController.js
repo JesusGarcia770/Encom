@@ -31,7 +31,7 @@ productsController.insertProduct = async (req, res) => {
             res.status(400).json({message: "stock can't be lower than 0"})
         }
 
-        const newProduct = await producsModel({
+        const newProduct = new producsModel({
             name,
             category_id,
             price,
