@@ -20,6 +20,10 @@ usersController.updateUser = async (req, res) => {
         name?.trim()
         email?.trim()
 
+        if (!name || !email || !password) {
+            return res.status(400).json({message: "Fields required"})
+        }
+
         const userUpdated = await usersModel.findByIdAndUpdate(req.params.id, {
             name,
             email,
