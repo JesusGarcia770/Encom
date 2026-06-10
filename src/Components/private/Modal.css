@@ -1,0 +1,131 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-box {
+  background: #131825;
+  border: 1px solid #1c2333;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-in 0.18s ease;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 18px;
+  border-bottom: 1px solid #1c2333;
+  position: sticky;
+  top: 0;
+  background: #131825;
+  z-index: 1;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-close {
+  width: 30px;
+  height: 30px;
+  background: rgba(107, 114, 128, 0.12);
+  border: none;
+  border-radius: 7px;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.modal-close svg {
+  width: 14px;
+  height: 14px;
+}
+
+.modal-body {
+  padding: 20px 24px 24px;
+}
+
+/* ===== CONFIRM DIALOG CONTENT ===== */
+.confirm-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.confirm-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(239, 68, 68, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444;
+}
+
+.confirm-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.confirm-content p {
+  margin: 0;
+  color: #d1d5db;
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 360px;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.btn-danger {
+  padding: 9px 26px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn-danger:hover {
+  opacity: 0.88;
+}

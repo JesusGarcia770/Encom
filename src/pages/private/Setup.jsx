@@ -8,9 +8,6 @@ export default function Setup() {
   const [form, setForm] = useState({ nombre: '', apellido: '', telefono: '', correo: '', password: '' })
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    if (localStorage.getItem('encom_admin')) navigate('/admin/login')
-  }, [])
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 

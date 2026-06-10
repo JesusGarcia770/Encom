@@ -1,0 +1,144 @@
+.crud-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ROW VARIANTS */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-row-2 {
+  flex-direction: row;
+}
+
+.form-row-2 > .form-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-row-3 {
+  flex-direction: row;
+}
+
+.form-row-3 > .form-field {
+  flex: 1;
+  min-width: 0;
+}
+
+/* FIELD */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: #0d1220;
+  border: 1px solid #1c2333;
+  border-radius: 9px;
+  padding: 9px 12px;
+  color: #e6e9f0;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: #4d8eff;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #4b5563;
+}
+
+.form-field select option {
+  background: #131825;
+  color: #e6e9f0;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* REQUIRED ASTERISK */
+.req {
+  color: #ef4444;
+}
+
+/* SECTION DIVIDER */
+.form-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding-top: 6px;
+  border-top: 1px solid #1c2333;
+}
+
+/* CHECKBOX ROW */
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-check input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  accent-color: #4d8eff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.form-check label {
+  font-size: 13px;
+  color: #d1d5db;
+  cursor: pointer;
+}
+
+/* FORM ACTIONS */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid #1c2333;
+}
+
+.btn-cancel {
+  padding: 9px 22px;
+  background: transparent;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-cancel:hover {
+  border-color: #6b7280;
+  color: #e6e9f0;
+}
