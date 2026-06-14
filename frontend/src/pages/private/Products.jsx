@@ -2,58 +2,43 @@ import { useState } from 'react'
 import AdminTable from '../../Components/private/AdminTable'
 import ProductForm from '../../Components/private/ProductForm'
 import ConfirmDialog from '../../Components/private/ConfirmDialog'
+import { useProducts } from '../../hooks/useProducts'
 import './Products.css'
 
-const COLUMNS = ['Productos', 'Precio', 'Stock', 'Categoria', 'Marca', 'Fecha', 'Estado', 'Acciones']
-
-const INIT = Array.from({ length: 10 }, (_, i) => ({
-  id: i + 1,
-  nombre: 'Samsung Galaxy S24 Ultra',
-  descripcion: 'Smartphone flagship de Samsung con pantalla Dynamic AMOLED 2X.',
-  precio: 150,
-  stock: 175,
-  categoria: 'Smartphones',
-  marca: 'Samsung',
-  fecha: '2026-01-15',
-  estado: 'Activo',
-  imagenes: '',
-}))
-
-const estadoClass = {
-  Activo: 'pill-activo',
-  Inactivo: 'pill-inactivo',
-  Descontinuado: 'pill-cancelado',
-}
+const COLUMNS = ['Producto', 'Precio', 'Stock', 'Categoría', 'Fecha', 'Acciones']
 
 export default function Products() {
-  const [productos, setProductos] = useState(INIT)
+  const { products: productos, loading, error, setError, addProduct, editProduct, removeProduct } = useProducts()
   const [search, setSearch]       = useState('')
   const [showForm, setShowForm]   = useState(false)
   const [editing, setEditing]     = useState(null)
   const [toDelete, setToDelete]   = useState(null)
 
   const filtered = productos.filter(p =>
-    p.nombre.toLowerCase().includes(search.toLowerCase())
+    p.name?.toLowerCase().includes(search.toLowerCase())
   )
 
   function openAdd()  { setEditing(null); setShowForm(true) }
   function openEdit(p){ setEditing(p);    setShowForm(true) }
   function closeForm(){ setShowForm(false); setEditing(null) }
 
-  function handleSave(data) {
+  async function handleSave(formData) {
     if (editing) {
-      setProductos(ps => ps.map(p => p.id === editing.id ? { ...p, ...data } : p))
+      await editProduct(editing._id, formData)
     } else {
-      const newId = Math.max(0, ...productos.map(p => p.id)) + 1
-      const fecha = new Date().toISOString().split('T')[0]
-      setProductos(ps => [...ps, { id: newId, fecha, ...data }])
+      await addProduct(formData)
     }
     closeForm()
   }
 
-  function handleDelete() {
-    setProductos(ps => ps.filter(p => p.id !== toDelete.id))
-    setToDelete(null)
+  async function handleDelete() {
+    try {
+      await removeProduct(toDelete._id)
+      setToDelete(null)
+    } catch (err) {
+      setError(err.message)
+      setToDelete(null)
+    }
   }
 
   return (
@@ -79,41 +64,38 @@ export default function Products() {
         />
       </div>
 
+      {error && <p className="form-error">{error}</p>}
+
       <AdminTable columns={COLUMNS} total={productos.length} label="productos">
-        {filtered.map(p => (
-          <tr key={p.id}>
+        {loading ? (
+          <tr><td colSpan={COLUMNS.length}>Cargando...</td></tr>
+        ) : filtered.map(p => (
+          <tr key={p._id}>
             <td>
               <div className="product-cell">
                 <div className="product-thumb">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="1.5">
-                    <rect x="5" y="2" width="14" height="20" rx="2"/>
-                    <circle cx="12" cy="18" r="1"/>
-                  </svg>
+                  {p.image
+                    ? <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                    : (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="1.5">
+                        <rect x="5" y="2" width="14" height="20" rx="2"/>
+                        <circle cx="12" cy="18" r="1"/>
+                      </svg>
+                    )
+                  }
                 </div>
                 <div>
-                  <strong>{p.nombre}</strong>
-                  <span>{p.marca} · {p.categoria}</span>
+                  <strong>{p.name}</strong>
+                  <span>{p.category_id?.name ?? 'Sin categoría'}</span>
                 </div>
               </div>
             </td>
-            <td>${p.precio}</td>
+            <td>${p.price}</td>
             <td>{p.stock}</td>
-            <td>{p.categoria}</td>
-            <td>{p.marca}</td>
-            <td>{p.fecha}</td>
-            <td>
-              <span className={`pill ${estadoClass[p.estado] ?? 'pill-inactivo'}`}>
-                ● {p.estado}
-              </span>
-            </td>
+            <td>{p.category_id?.name ?? '-'}</td>
+            <td>{p.createdAt ? new Date(p.createdAt).toLocaleDateString() : '-'}</td>
             <td>
               <div className="actions-cell">
-                <button className="action-btn act-view" title="Ver">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                  </svg>
-                </button>
                 <button className="action-btn act-edit" title="Editar" onClick={() => openEdit(p)}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
@@ -138,7 +120,7 @@ export default function Products() {
 
       {toDelete && (
         <ConfirmDialog
-          message={`¿Eliminar el producto "${toDelete.nombre}"? Esta acción no se puede deshacer.`}
+          message={`¿Eliminar el producto "${toDelete.name}"? Esta acción no se puede deshacer.`}
           onConfirm={handleDelete}
           onCancel={() => setToDelete(null)}
         />

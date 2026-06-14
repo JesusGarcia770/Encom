@@ -5,7 +5,7 @@ const productsController = {}
 
 productsController.getProducts = async (req, res) => {
     try {
-        const products = await producsModel.find()
+        const products = await producsModel.find().populate("category_id")
         return res.status(200).json(products)
     } catch (error) {
         console.log("error:", error)
@@ -15,9 +15,7 @@ productsController.getProducts = async (req, res) => {
 
 productsController.insertProduct = async (req, res) => {
     try {
-        const {name, category_id, price, stock} = req.body
-
-        name = name?.trim()
+        const {name, description, category_id, price, stock} = req.body;
 
         if (!category_id) {
             return res.status(400).json({message: "category id required"})
@@ -28,17 +26,17 @@ productsController.insertProduct = async (req, res) => {
         }
 
         if (stock < 0) {
-            res.status(400).json({message: "stock can't be lower than 0"})
+            return res.status(400).json({message: "stock can't be lower than 0"})
         }
 
         const newProduct = new producsModel({
             name,
+            description,
             category_id,
             price,
             stock,
             image: req.file.path,
             public_id: req.file.filename,
-            created_at: new Date()
         })
 
         await newProduct.save()
@@ -52,9 +50,9 @@ productsController.insertProduct = async (req, res) => {
 
 productsController.updateProduct = async (req, res) => {
     try {
-        const {name, category_id, price, stock} = req.body
+        const {description, category_id, price, stock} = req.body
 
-        name = name?.trim()
+        const name = req.body.name?.trim()
 
         if (!category_id) {
             return res.status(400).json({message: "category id required"})
@@ -65,7 +63,7 @@ productsController.updateProduct = async (req, res) => {
         }
 
         if (stock < 0) {
-            res.status(400).json({message: "stock can't be lower than 0"})
+            return res.status(400).json({message: "stock can't be lower than 0"})
         }
 
         const productFound = await producsModel.findById(req.params.id)
@@ -76,6 +74,7 @@ productsController.updateProduct = async (req, res) => {
 
         const updateData = {
             name,
+            description,
             category_id,
             price,
             stock
@@ -110,7 +109,7 @@ productsController.deleteProduct = async (req, res) => {
         await producsModel.findByIdAndDelete(req.params.id)
 
         return res.status(200).json({message: "Product deleted"})
-    } catch (erro) {
+    } catch (error) {
         console.log("error:", error)
         return res.status(500).json({message: "Internal server error"})
     }

@@ -4,8 +4,8 @@ const categoriesController = {}
 
 categoriesController.getCategories = async (req, res) => {
     try {
-        const categories = categoriesModel.find()
-        return res.status(200).json(categories)
+        const categories = await categoriesModel.find();
+        return res.status(200).json(categories);
     } catch (error) {
         console.log("error:", error)
         return res.status(500).json({message: "Internal server error"})
@@ -14,47 +14,36 @@ categoriesController.getCategories = async (req, res) => {
 
 categoriesController.insertCategory = async (req, res) => {
     try {
-        const {name} = req.body
-
-        name = name?.trim()
-
-        if (!name) {
-            return res.status(400).json({message: "Name required"})
-        }
+        const {name, description, status} = req.body;
 
         const newCategory = new categoriesModel({
             name,
-            created_at: new Date()
+            description,
+            status
         })
 
-        newCategory.save()
+        await newCategory.save()
 
         return res.status(200).json({message: "Category saved"})
     } catch (error) {
-        console.log("error:", error)
+        console.log("error:"+ error)
         return res.status(500).json({message: "Internal server error"})
     }
 }
 
 categoriesController.updateCategory = async (req, res) => {
     try {
-        const {name} = req.body
+        const {name, description, status} = req.body
 
-        name = name?.trim()
-
-        if (!name) {
-            return res.status(400).json({message: "Name required"})
-        }
-
-        const updatedCategory = await categoriesModel.findByIdAndUpdate(req.params.id, {name}, {new: true})
+        const updatedCategory = await categoriesModel.findByIdAndUpdate(req.params.id, {name, description, status}, {new: true})
 
         if (!updatedCategory) {
             return res.status(400).json({message: "Category not found"})
         }
 
         return res.status(200).json({message: "Category updated"})
-    } catch {
-        console.log("error:", error)
+    } catch (error) {
+        console.log("error:"+ error)
         return res.status(500).json({message: "Internal server error"})
     }
 }
@@ -68,8 +57,8 @@ categoriesController.deleteCategory = async (req, res) => {
         }
 
         return res.status(200).json({message: "Category deleted"})
-    } catch {
-        console.log("error:", error)
+    } catch (error) {
+        console.log("error:"+ error)
         return res.status(500).json({message: "Internal server error"})
     }
 }

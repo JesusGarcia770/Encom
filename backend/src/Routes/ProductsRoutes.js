@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.route("/")
 .get(productsController.getProducts)
-.post(productsController.insertProduct)
+.post(upload.single("image"), productsController.insertProduct)
 
 router.route("/:id")
 .put(upload.single("image"), productsController.updateProduct)

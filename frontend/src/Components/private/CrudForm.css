@@ -84,6 +84,13 @@
   color: #ef4444;
 }
 
+/* FORM ERROR MESSAGE */
+.form-error {
+  color: #ef4444;
+  font-size: 13px;
+  margin: 0;
+}
+
 /* SECTION DIVIDER */
 .form-section-title {
   font-size: 11px;

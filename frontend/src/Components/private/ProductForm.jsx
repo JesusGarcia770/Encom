@@ -1,55 +1,68 @@
 import { useState } from 'react'
 import Modal from './Modal'
+import { useCategories } from '../../hooks/useCategories'
 import './CrudForm.css'
 
-const CATEGORIAS = ['Smartphones', 'Laptops', 'Accesorios', 'Tablets', 'Audífonos', 'Smart Watches']
-const MARCAS = ['Samsung', 'Apple', 'Xiaomi', 'Huawei', 'Sony', 'LG', 'Dell', 'HP', 'Lenovo']
-const ESTADOS = ['Activo', 'Inactivo', 'Descontinuado']
-
 const EMPTY = {
-  nombre: '',
-  descripcion: '',
-  precio: '',
+  name: '',
+  description: '',
+  price: '',
   stock: '',
-  categoria: '',
-  marca: '',
-  estado: 'Activo',
-  imagenes: '',
-  descPorcentaje: '',
-  descInicio: '',
-  descFin: '',
-  descActivo: false,
+  category_id: '',
 }
 
 export default function ProductForm({ initial, onSave, onClose }) {
   const [form, setForm] = useState(
     initial
       ? {
-          nombre:        initial.nombre       ?? '',
-          descripcion:   initial.descripcion  ?? '',
-          precio:        initial.precio       ?? '',
-          stock:         initial.stock        ?? '',
-          categoria:     initial.categoria    ?? '',
-          marca:         initial.marca        ?? '',
-          estado:        initial.estado       ?? 'Activo',
-          imagenes:      initial.imagenes     ?? '',
-          descPorcentaje: initial.descPorcentaje ?? '',
-          descInicio:    initial.descInicio   ?? '',
-          descFin:       initial.descFin      ?? '',
-          descActivo:    initial.descActivo   ?? false,
+          name:        initial.name        ?? '',
+          description: initial.description ?? '',
+          price:       initial.price        ?? '',
+          stock:       initial.stock        ?? '',
+          category_id: initial.category_id?._id ?? initial.category_id ?? '',
         }
       : EMPTY
   )
+  const { categories } = useCategories()
+  const [imageFile, setImageFile] = useState(null)
+  const [preview, setPreview] = useState(initial?.image ?? '')
+  const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
-  function handleSubmit(e) {
+  function handleImageChange(e) {
+    const file = e.target.files[0]
+    if (!file) return
+    setImageFile(file)
+    setPreview(URL.createObjectURL(file))
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault()
-    onSave({
-      ...form,
-      precio: Number(form.precio),
-      stock:  Number(form.stock),
-    })
+    setError('')
+
+    if (!initial && !imageFile) {
+      setError('La imagen es obligatoria')
+      return
+    }
+
+    const data = new FormData()
+    data.append('name', form.name)
+    data.append('description', form.description)
+    data.append('price', form.price)
+    data.append('stock', form.stock)
+    data.append('category_id', form.category_id)
+    if (imageFile) data.append('image', imageFile)
+
+    setSaving(true)
+    try {
+      await onSave(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -61,8 +74,8 @@ export default function ProductForm({ initial, onSave, onClose }) {
             <label>Nombre <span className="req">*</span></label>
             <input
               required
-              value={form.nombre}
-              onChange={e => set('nombre', e.target.value)}
+              value={form.name}
+              onChange={e => set('name', e.target.value)}
               placeholder="Ej: Samsung Galaxy S24 Ultra"
             />
           </div>
@@ -72,8 +85,8 @@ export default function ProductForm({ initial, onSave, onClose }) {
           <div className="form-field">
             <label>Descripción</label>
             <textarea
-              value={form.descripcion}
-              onChange={e => set('descripcion', e.target.value)}
+              value={form.description}
+              onChange={e => set('description', e.target.value)}
               placeholder="Descripción detallada del producto..."
               rows={3}
             />
@@ -88,8 +101,8 @@ export default function ProductForm({ initial, onSave, onClose }) {
               type="number"
               min="0"
               step="0.01"
-              value={form.precio}
-              onChange={e => set('precio', e.target.value)}
+              value={form.price}
+              onChange={e => set('price', e.target.value)}
               placeholder="0.00"
             />
           </div>
@@ -105,94 +118,33 @@ export default function ProductForm({ initial, onSave, onClose }) {
           </div>
         </div>
 
-        <div className="form-row form-row-2">
+        <div className="form-row">
           <div className="form-field">
             <label>Categoría <span className="req">*</span></label>
             <select
               required
-              value={form.categoria}
-              onChange={e => set('categoria', e.target.value)}
+              value={form.category_id}
+              onChange={e => set('category_id', e.target.value)}
             >
               <option value="">Seleccionar...</option>
-              {CATEGORIAS.map(c => <option key={c}>{c}</option>)}
-            </select>
-          </div>
-          <div className="form-field">
-            <label>Marca <span className="req">*</span></label>
-            <select
-              required
-              value={form.marca}
-              onChange={e => set('marca', e.target.value)}
-            >
-              <option value="">Seleccionar...</option>
-              {MARCAS.map(m => <option key={m}>{m}</option>)}
+              {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
             </select>
           </div>
         </div>
 
-        <div className="form-row form-row-2">
+        <div className="form-row">
           <div className="form-field">
-            <label>Estado</label>
-            <select value={form.estado} onChange={e => set('estado', e.target.value)}>
-              {ESTADOS.map(s => <option key={s}>{s}</option>)}
-            </select>
-          </div>
-          <div className="form-field">
-            <label>Imagen (URL)</label>
-            <input
-              value={form.imagenes}
-              onChange={e => set('imagenes', e.target.value)}
-              placeholder="https://..."
-            />
+            <label>Imagen {!initial && <span className="req">*</span>}</label>
+            <input type="file" accept="image/png, image/jpeg, image/jpg" onChange={handleImageChange} />
           </div>
         </div>
 
-        <div className="form-section-title">Descuento (opcional)</div>
-
-        <div className="form-row form-row-3">
-          <div className="form-field">
-            <label>Porcentaje (%)</label>
-            <input
-              type="number"
-              min="0"
-              max="100"
-              value={form.descPorcentaje}
-              onChange={e => set('descPorcentaje', e.target.value)}
-              placeholder="0"
-            />
-          </div>
-          <div className="form-field">
-            <label>Fecha inicio</label>
-            <input
-              type="date"
-              value={form.descInicio}
-              onChange={e => set('descInicio', e.target.value)}
-            />
-          </div>
-          <div className="form-field">
-            <label>Fecha fin</label>
-            <input
-              type="date"
-              value={form.descFin}
-              onChange={e => set('descFin', e.target.value)}
-            />
-          </div>
-        </div>
-
-        <div className="form-check">
-          <input
-            type="checkbox"
-            id="desc-activo"
-            checked={form.descActivo}
-            onChange={e => set('descActivo', e.target.checked)}
-          />
-          <label htmlFor="desc-activo">Descuento activo</label>
-        </div>
+        {error && <p className="form-error">{error}</p>}
 
         <div className="form-actions">
           <button type="button" className="btn-cancel" onClick={onClose}>Cancelar</button>
-          <button type="submit" className="btn-primary">
-            {initial ? 'Guardar cambios' : 'Agregar producto'}
+          <button type="submit" className="btn-primary" disabled={saving}>
+            {saving ? 'Guardando...' : (initial ? 'Guardar cambios' : 'Agregar producto')}
           </button>
         </div>
 

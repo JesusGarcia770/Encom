@@ -2,47 +2,43 @@ import { useState } from 'react'
 import AdminTable from '../../Components/private/AdminTable'
 import CategoryForm from '../../Components/private/CategoryForm'
 import ConfirmDialog from '../../Components/private/ConfirmDialog'
+import { useCategories } from '../../hooks/useCategories'
 import './Products.css'
 
-const COLUMNS = ['Categoría', 'Descripción', 'Productos', 'Estado', 'Acciones']
-
-const INIT = [
-  { id: 1, nombre: 'Smartphones',   desc: 'Teléfonos inteligentes de última generación',   productos: 80,  estado: 'Activo'   },
-  { id: 2, nombre: 'Laptops',       desc: 'Computadoras portátiles para trabajo y gaming',  productos: 45,  estado: 'Activo'   },
-  { id: 3, nombre: 'Accesorios',    desc: 'Cables, cargadores y periféricos',               productos: 120, estado: 'Activo'   },
-  { id: 4, nombre: 'Tablets',       desc: 'Dispositivos táctiles de mediano formato',       productos: 30,  estado: 'Activo'   },
-  { id: 5, nombre: 'Audífonos',     desc: 'Auriculares y equipos de audio',                 productos: 55,  estado: 'Activo'   },
-  { id: 6, nombre: 'Smart Watches', desc: 'Relojes inteligentes y wearables',               productos: 22,  estado: 'Inactivo' },
-]
+const COLUMNS = ['Categoría', 'Descripción','Estado', 'Acciones']
 
 export default function Categories() {
-  const [categorias, setCategorias] = useState(INIT)
+  const { categories: categories, loading, error, setError, reload, addCategory, editCategory, removeCategory,  } = useCategories()
   const [search, setSearch]         = useState('')
   const [showForm, setShowForm]     = useState(false)
   const [editing, setEditing]       = useState(null)
   const [toDelete, setToDelete]     = useState(null)
 
-  const filtered = categorias.filter(c =>
-    c.nombre.toLowerCase().includes(search.toLowerCase())
+  const filtered = categories.filter(c =>
+    c.name?.toLowerCase().includes(search.toLowerCase())
   )
 
   function openAdd()  { setEditing(null); setShowForm(true) }
   function openEdit(c){ setEditing(c);    setShowForm(true) }
   function closeForm(){ setShowForm(false); setEditing(null) }
 
-  function handleSave(data) {
+  async function handleSave(data) {
     if (editing) {
-      setCategorias(cs => cs.map(c => c.id === editing.id ? { ...c, ...data } : c))
+      await editCategory(editing._id, data)
     } else {
-      const newId = Math.max(0, ...categorias.map(c => c.id)) + 1
-      setCategorias(cs => [...cs, { id: newId, productos: 0, ...data }])
+      await addCategory(data)
     }
     closeForm()
   }
 
-  function handleDelete() {
-    setCategorias(cs => cs.filter(c => c.id !== toDelete.id))
+  async function handleDelete() {
+    try {
+    await removeCategory(toDelete._id)
     setToDelete(null)
+  } catch (error) {
+    setError(error.message)
+    setToDelete(null)
+  }
   }
 
   return (
@@ -68,25 +64,18 @@ export default function Categories() {
         />
       </div>
 
-      <AdminTable columns={COLUMNS} total={categorias.length} label="categorías">
+      <AdminTable columns={COLUMNS} total={categories.length} label="categorías">
         {filtered.map(c => (
-          <tr key={c.id}>
-            <td><strong style={{ color: '#fff' }}>{c.nombre}</strong></td>
-            <td>{c.desc}</td>
-            <td>{c.productos}</td>
+          <tr key={c._id}>
+            <td><strong style={{ color: '#fff' }}>{c.name}</strong></td>
+            <td>{c.description}</td>
             <td>
-              <span className={`pill ${c.estado === 'Activo' ? 'pill-activo' : 'pill-inactivo'}`}>
-                ● {c.estado}
+              <span className={`pill ${c.status === 'Activo' ? 'pill-activo' : 'pill-inactivo'}`}>
+                ● {c.status}
               </span>
             </td>
             <td>
               <div className="actions-cell">
-                <button className="action-btn act-view" title="Ver">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                  </svg>
-                </button>
                 <button className="action-btn act-edit" title="Editar" onClick={() => openEdit(c)}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
@@ -111,7 +100,7 @@ export default function Categories() {
 
       {toDelete && (
         <ConfirmDialog
-          message={`¿Eliminar la categoría "${toDelete.nombre}"? Esta acción no se puede deshacer.`}
+          message={`¿Eliminar la categoría "${toDelete.name}"? Esta acción no se puede deshacer.`}
           onConfirm={handleDelete}
           onCancel={() => setToDelete(null)}
         />

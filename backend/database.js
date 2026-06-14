@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb+srv://Andryck:Drixx2024@cluster0.rizw0kw.mongodb.net/?appName=Cluster0")
+mongoose.connect("mongodb://localhost:27017/EncomDB")
 
 //Comprobar que todo funciona 
 
