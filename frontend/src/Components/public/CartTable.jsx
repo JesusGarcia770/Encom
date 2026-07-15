@@ -19,19 +19,24 @@ export default function CartTable({ items, onUpdateQty, onRemove }) {
       {items.map((item, idx) => (
         <div className="cart-item" key={item.id}>
           <div className="item-num">{idx + 1}</div>
-          <div className="item-img">{item.icon ?? <PhoneIcon />}</div>
+          <div className="item-img">
+            {item.image ? <img src={item.image} alt={item.name} /> : (item.icon ?? <PhoneIcon />)}
+          </div>
           <div className="item-info">
             <p className="item-name">{item.name}</p>
-            <p className="item-desc">{item.desc}</p>
+            {item.desc && <p className="item-desc">{item.desc}</p>}
           </div>
           <div className="item-price">${item.price.toFixed(2)}</div>
           <div className="item-qty">
-            <button onClick={() => onUpdateQty(item.id, -1)}>−</button>
+            <button disabled={item.pending} onClick={() => onUpdateQty(item.id, -1)}>−</button>
             <span>{item.qty}</span>
-            <button onClick={() => onUpdateQty(item.id, +1)}>+</button>
+            <button
+              disabled={item.pending || (item.maxQty !== undefined && item.qty >= item.maxQty)}
+              onClick={() => onUpdateQty(item.id, +1)}
+            >+</button>
           </div>
           <div className="item-total">${(item.price * item.qty).toFixed(2)}</div>
-          <button className="item-remove" onClick={() => onRemove(item.id)} aria-label="Eliminar">
+          <button className="item-remove" disabled={item.pending} onClick={() => onRemove(item.id)} aria-label="Eliminar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
               <polyline points="3 6 5 6 21 6"/>
               <path d="M19 6l-1 14H6L5 6"/>

@@ -1,10 +1,12 @@
 import { Link, useLocation } from 'react-router'
 import { useState } from 'react'
+import { useCart } from '../../hooks/useCart'
 import './Nav.css'
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  const { itemCount, toggleDrawer } = useCart()
 
   return (
     <>
@@ -22,14 +24,14 @@ export default function Nav() {
             </svg>
           </button>
 
-          <Link to="/cart" className="icon-btn cart-btn" aria-label="Carrito">
+          <button className="icon-btn cart-btn" aria-label="Carrito" onClick={toggleDrawer}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
               <line x1="3" y1="6" x2="21" y2="6"/>
               <path d="M16 10a4 4 0 0 1-8 0"/>
             </svg>
-            <span className="cart-badge">2</span>
-          </Link>
+            {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
+          </button>
 
           <Link to="/login" className="icon-btn" aria-label="Usuario">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">

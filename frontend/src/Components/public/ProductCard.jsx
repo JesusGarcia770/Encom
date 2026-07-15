@@ -1,13 +1,34 @@
 import { useState } from 'react'
+import { useCart } from '../../hooks/useCart'
 import './ProductCard.css'
 
 export default function ProductCard({ product }) {
+  const { addItem, isPending } = useCart()
   const [selectedColor, setSelectedColor] = useState(0)
   const [added, setAdded] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleAddCart = () => {
-    setAdded(true)
-    setTimeout(() => setAdded(false), 1500)
+  const isRealProduct = Boolean(product._id)
+  const pending = isRealProduct && isPending(product._id)
+  const outOfStock = isRealProduct && product.stock <= 0
+  const description = product.desc ?? product.description
+
+  const handleAddCart = async () => {
+    setError('')
+
+    if (!isRealProduct) {
+      setAdded(true)
+      setTimeout(() => setAdded(false), 1500)
+      return
+    }
+
+    try {
+      await addItem(product._id)
+      setAdded(true)
+      setTimeout(() => setAdded(false), 1500)
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   return (
@@ -18,14 +39,15 @@ export default function ProductCard({ product }) {
             {product.badge}
           </span>
         )}
-        <div className="product-img-placeholder">
-          {product.icon}
-        </div>
+        {product.image
+          ? <img className="product-img" src={product.image} alt={product.name} />
+          : <div className="product-img-placeholder">{product.icon}</div>
+        }
       </div>
 
       <div className="product-body">
         <p className="product-name">{product.name}</p>
-        <p className="product-desc">{product.desc}</p>
+        {description && <p className="product-desc">{description}</p>}
 
         <div className="product-pricing">
           <span className="price-current">${product.price.toFixed(2)}</span>
@@ -48,11 +70,14 @@ export default function ProductCard({ product }) {
           </div>
         )}
 
+        {error && <p className="product-error">{error}</p>}
+
         <button
           className={`btn-cart ${added ? 'added' : ''}`}
           onClick={handleAddCart}
+          disabled={pending || outOfStock}
         >
-          {added ? '✓ Agregado' : 'Agregar al carrito'}
+          {outOfStock ? 'Agotado' : pending ? 'Agregando...' : added ? '✓ Agregado' : 'Agregar al carrito'}
         </button>
       </div>
     </div>

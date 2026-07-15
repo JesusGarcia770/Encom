@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import productsRoutes from "./src/Routes/ProductsRoutes.js"
 import categoriesRoutes from "./src/Routes/categoriesRoutes.js"
 import userRoutes from "./src/Routes/UserRoutes.js"
+import cartRoutes from "./src/Routes/CartRoutes.js"
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use(express.json());
 app.use("/api/users", userRoutes)
 app.use("/api/products", productsRoutes)
 app.use("/api/categories", categoriesRoutes)
+app.use("/api/cart", cartRoutes)
 
 export default app

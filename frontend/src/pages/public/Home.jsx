@@ -3,188 +3,29 @@ import { Link } from 'react-router'
 import ProductCard from '../../Components/public/ProductCard'
 import Footer from '../../components/public/Footer'
 import Hero from '../../Components/public/Hero'
+import { useProducts } from '../../hooks/useProducts'
+import { useCategories } from '../../hooks/useCategories'
 import samsungImg from '../../assets/image.png'
 import './Home.css'
 
-const PhoneIcon = () => (
-  <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17" r="1"/><line x1="9" y1="6" x2="15" y2="6"/></svg>
-)
-const TabletIcon = () => (
-  <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
-)
-const MonitorIcon = () => (
-  <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-)
-const LaptopIcon = () => (
-  <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M0 21h24"/></svg>
-)
-
-const products = {
-  destacados: [
-    {
-      id: 1,
-      name: 'Aether Pro 250GB',
-      desc: '6.7" AMOLED · 200MP · 5000mAh',
-      price: 740,
-      oldPrice: 900,
-      badge: '-18%',
-      colors: ['#1a1a1a', '#C0C0C0', '#8B5CF6'],
-      icon: <PhoneIcon />,
-    },
-    {
-      id: 2,
-      name: 'Aether Lite 128GB',
-      desc: '6.4" LCD · 64MP · 4500mAh',
-      price: 499,
-      oldPrice: 610,
-      badge: 'Nuevo',
-      colors: ['#0057D9', '#E8E8E8'],
-      icon: <PhoneIcon />,
-    },
-    {
-      id: 3,
-      name: 'Encom View 27"',
-      desc: '4K IPS · 144Hz · HDR400',
-      price: 320,
-      oldPrice: 390,
-      colors: ['#1a1a1a', '#fff'],
-      icon: <MonitorIcon />,
-    },
-    {
-      id: 4,
-      name: 'Aether Tab Pro',
-      desc: '11" AMOLED · S-Pen · 8000mAh',
-      price: 580,
-      oldPrice: 680,
-      badge: 'Nuevo',
-      colors: ['#4B5563', '#0057D9'],
-      icon: <TabletIcon />,
-    },
-  ],
-  smartphones: [
-    {
-      id: 5,
-      name: 'Aether Pro Max',
-      desc: '6.8" AMOLED · 108MP · 6000mAh',
-      price: 899,
-      oldPrice: 1050,
-      badge: '-15%',
-      colors: ['#1a1a1a', '#FFD700'],
-      icon: <PhoneIcon />,
-    },
-    {
-      id: 6,
-      name: 'Aether SE',
-      desc: '6.1" LCD · 48MP · 4000mAh',
-      price: 299,
-      colors: ['#E8E8E8', '#1a1a1a', '#FF6B6B'],
-      icon: <PhoneIcon />,
-    },
-    {
-      id: 7,
-      name: 'Aether Fold',
-      desc: '7.6" Plegable · AMOLED · 4400mAh',
-      price: 1299,
-      oldPrice: 1499,
-      badge: 'Nuevo',
-      colors: ['#1a1a1a', '#B8860B'],
-      icon: <PhoneIcon />,
-    },
-    {
-      id: 8,
-      name: 'Aether Lite Plus',
-      desc: '6.5" IPS · 64MP · 5000mAh',
-      price: 380,
-      oldPrice: 450,
-      colors: ['#0057D9', '#E8E8E8', '#1a1a1a'],
-      icon: <PhoneIcon />,
-    },
-  ],
-  tablets: [
-    {
-      id: 9,
-      name: 'Aether Tab S',
-      desc: '10.5" IPS · 8GB RAM · 7000mAh',
-      price: 380,
-      oldPrice: 450,
-      badge: '-15%',
-      colors: ['#4B5563', '#C0C0C0'],
-      icon: <TabletIcon />,
-    },
-    {
-      id: 10,
-      name: 'Aether Tab Lite',
-      desc: '8" LCD · 4GB RAM · 5100mAh',
-      price: 199,
-      colors: ['#1a1a1a', '#E8E8E8'],
-      icon: <TabletIcon />,
-    },
-    {
-      id: 11,
-      name: 'Aether Tab Pro 12',
-      desc: '12.4" AMOLED · 12GB RAM · 10000mAh',
-      price: 799,
-      oldPrice: 950,
-      badge: 'Nuevo',
-      colors: ['#1a1a1a', '#0057D9'],
-      icon: <TabletIcon />,
-    },
-    {
-      id: 12,
-      name: 'Aether Tab Kids',
-      desc: '10" LCD · Resistente · 6000mAh',
-      price: 229,
-      oldPrice: 280,
-      colors: ['#FF6B6B', '#4CAF50', '#0057D9'],
-      icon: <TabletIcon />,
-    },
-  ],
-  laptops: [
-    {
-      id: 13,
-      name: 'Encom Book Pro',
-      desc: '15.6" OLED · i7 · 16GB · 512GB SSD',
-      price: 1099,
-      oldPrice: 1299,
-      badge: '-15%',
-      colors: ['#1a1a1a', '#C0C0C0'],
-      icon: <LaptopIcon />,
-    },
-    {
-      id: 14,
-      name: 'Encom Book Air',
-      desc: '13.3" IPS · i5 · 8GB · 256GB SSD',
-      price: 699,
-      colors: ['#C0C0C0', '#FFD700'],
-      icon: <LaptopIcon />,
-    },
-    {
-      id: 15,
-      name: 'Encom Book Max',
-      desc: '17.3" 4K · i9 · 32GB · 1TB SSD',
-      price: 1599,
-      oldPrice: 1899,
-      badge: 'Nuevo',
-      colors: ['#1a1a1a'],
-      icon: <LaptopIcon />,
-    },
-    {
-      id: 16,
-      name: 'Encom Book Lite',
-      desc: '14" IPS · Ryzen 5 · 8GB · 256GB',
-      price: 549,
-      oldPrice: 650,
-      colors: ['#E8E8E8', '#1a1a1a'],
-      icon: <LaptopIcon />,
-    },
-  ],
-}
-
-const tabs = ['destacados', 'smartphones', 'tablets', 'laptops']
-const tabLabels = { destacados: 'Productos destacados', smartphones: 'Smartphones', tablets: 'Tablets', laptops: 'Laptops' }
+const HOME_PRODUCTS_LIMIT = 8
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('destacados')
+  const { products, loading, error } = useProducts()
+  const { categories } = useCategories()
+
+  const tabs = ['destacados', ...categories.map(c => c._id)]
+  const tabLabels = categories.reduce(
+    (acc, c) => ({ ...acc, [c._id]: c.name }),
+    { destacados: 'Productos destacados' }
+  )
+
+  const visibleProducts = (
+    activeTab === 'destacados'
+      ? products
+      : products.filter(p => p.category_id?._id === activeTab)
+  ).slice(0, HOME_PRODUCTS_LIMIT)
 
   return (
     <main className="home">
@@ -223,7 +64,7 @@ export default function Home() {
       <section className="products-section">
         <div className="section-header">
           <h2 className="section-title">Novedades <span>del mes</span></h2>
-          <a className="view-all">Ver todo →</a>
+          <Link to="/products" className="view-all">Ver todo →</Link>
         </div>
 
         <div className="tabs-row">
@@ -238,11 +79,19 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="product-grid">
-          {products[activeTab].map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+        {loading && <p className="products-msg">Cargando productos...</p>}
+        {error && !loading && <p className="products-msg products-msg-error">{error}</p>}
+        {!loading && !error && visibleProducts.length === 0 && (
+          <p className="products-msg">Aún no hay productos en esta categoría.</p>
+        )}
+
+        {!loading && !error && visibleProducts.length > 0 && (
+          <div className="product-grid">
+            {visibleProducts.map((p) => (
+              <ProductCard key={p._id} product={p} />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* PROMO BANNERS */}

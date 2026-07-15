@@ -96,6 +96,15 @@
   gap: 18px;
 }
 
+.products-msg {
+  text-align: center;
+  color: #888;
+  font-size: 15px;
+  padding: 40px 20px;
+}
+
+.products-msg-error { color: #ff4040; }
+
 /* PROMO */
 .promo-section {
   display: grid;
