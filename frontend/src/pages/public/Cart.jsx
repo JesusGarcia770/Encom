@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import { useCart } from '../../hooks/useCart'
+import { createCheckout } from '../../api/checkout'
 import CartTable from '../../Components/public/CartTable'
 import './Cart.css'
 
@@ -8,6 +10,8 @@ export default function Cart() {
     items, itemCount, subtotal, loading, error,
     incrementItem, decrementItem, removeItem, isPending,
   } = useCart()
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [checkoutError, setCheckoutError] = useState('')
 
   const tableItems = items.map(item => ({
     id: item.product_id._id,
@@ -21,6 +25,18 @@ export default function Cart() {
   }))
 
   const updateQty = (id, delta) => (delta > 0 ? incrementItem(id) : decrementItem(id))
+
+  const handleCheckout = async () => {
+    setCheckoutError('')
+    setCheckoutLoading(true)
+    try {
+      const { checkoutUrl } = await createCheckout()
+      window.location.href = checkoutUrl
+    } catch (err) {
+      setCheckoutError(err.message)
+      setCheckoutLoading(false)
+    }
+  }
 
   return (
     <div className="cart-page">
@@ -52,7 +68,14 @@ export default function Cart() {
                 <span>Total</span>
                 <span>${subtotal.toFixed(2)}</span>
               </div>
-              <button className="btn-checkout" disabled={items.length === 0}>Realizar compra</button>
+              {checkoutError && <p className="cart-loading cart-error checkout-error">{checkoutError}</p>}
+              <button
+                className="btn-checkout"
+                disabled={items.length === 0 || checkoutLoading}
+                onClick={handleCheckout}
+              >
+                {checkoutLoading ? 'Redirigiendo a Wompi...' : 'Realizar compra'}
+              </button>
               <div className="pay-methods">
                 <span>Paga con</span>
                 <div className="pay-icons">

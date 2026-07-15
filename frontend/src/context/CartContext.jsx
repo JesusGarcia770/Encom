@@ -105,6 +105,7 @@ export function CartProvider({ children }) {
     decrementItem,
     removeItem,
     emptyCart,
+    reload,
     isPending: (productId) => pendingIds.has(productId),
   }
 

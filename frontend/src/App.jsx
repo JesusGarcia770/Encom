@@ -7,6 +7,7 @@ import AboutUs from './pages/public/AboutUs'
 import Contact from './pages/public/Contact'
 import Products from './pages/public/Products'
 import Cart from './pages/public/Cart'
+import CheckoutReturn from './pages/public/CheckoutReturn'
 import Login from './pages/public/Login'
 import Register from './pages/public/Register'
 import ForgotPassword from './pages/public/ForgotPassword'
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/contact" element={<><Nav /><CartDrawer /><Contact /></>} />
           <Route path="/products" element={<><Nav /><CartDrawer /><Products /></>} />
           <Route path="/cart" element={<><Nav /><CartDrawer /><Cart /></>} />
+          <Route path="/checkout/return" element={<><Nav /><CheckoutReturn /></>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
