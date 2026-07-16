@@ -1,16 +1,17 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import FormField from '../../Components/public/FormField'
+import { resetPassword } from '../../api/auth'
 import { useAuth } from '../../hooks/useAuth'
 import './AuthPages.css'
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-export default function Login() {
+export default function ResetPassword() {
+  const { token } = useParams()
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { setUser } = useAuth()
   const [showPass, setShowPass] = useState(false)
-  const [form, setForm] = useState({ email: '', password: '' })
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [form, setForm] = useState({ password: '', confirmar: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
@@ -19,18 +20,23 @@ export default function Login() {
     e.preventDefault()
     setError('')
 
-    if (!form.email || !form.password) {
+    if (!form.password || !form.confirmar) {
       setError('Completa todos los campos.')
       return
     }
-    if (!EMAIL_REGEX.test(form.email)) {
-      setError('Correo inválido.')
+    if (form.password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres.')
+      return
+    }
+    if (form.password !== form.confirmar) {
+      setError('Las contraseñas no coinciden.')
       return
     }
 
     setLoading(true)
     try {
-      await login(form.email, form.password)
+      const data = await resetPassword(token, form.password)
+      setUser(data.user)
       navigate('/')
     } catch (err) {
       setError(err.message)
@@ -43,13 +49,11 @@ export default function Login() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-logo">ENCOM</div>
-        <h1 className="auth-title">Inicio de sesión</h1>
-        <p className="auth-sub">Bienvenido de vuelta</p>
+        <h1 className="auth-title">Nueva contraseña</h1>
+        <p className="auth-sub">Elige una contraseña segura para tu cuenta</p>
 
         <form onSubmit={handleSubmit}>
-          <FormField label="Correo electrónico" name="email" value={form.email} onChange={handleChange} type="email" placeholder="correo@ejemplo.com" />
-
-          <FormField label="Contraseña">
+          <FormField label="Nueva contraseña">
             <div className="input-icon">
               <input
                 type={showPass ? 'text' : 'password'}
@@ -67,19 +71,33 @@ export default function Login() {
             </div>
           </FormField>
 
-          <div className="auth-row">
-            <Link to="/forgot-password" className="auth-link">¿Olvidaste tu contraseña? <span>Recuperar</span></Link>
-          </div>
+          <FormField label="Confirmar contraseña">
+            <div className="input-icon">
+              <input
+                type={showConfirm ? 'text' : 'password'}
+                name="confirmar"
+                value={form.confirmar}
+                onChange={handleChange}
+                placeholder="••••••••"
+              />
+              <button className="eye-btn" onClick={() => setShowConfirm(!showConfirm)} type="button">
+                {showConfirm
+                  ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                  : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                }
+              </button>
+            </div>
+          </FormField>
 
           {error && <p className="auth-error">{error}</p>}
 
           <button className="btn-auth" type="submit" disabled={loading}>
-            {loading ? 'Ingresando...' : 'Iniciar sesión'}
+            {loading ? 'Guardando...' : 'Restablecer contraseña'}
           </button>
         </form>
 
         <p className="auth-switch">
-          ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
+          <Link to="/login">← Volver al inicio de sesión</Link>
         </p>
       </div>
     </div>

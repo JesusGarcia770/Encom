@@ -1,24 +1,56 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import FormField from '../../Components/private/FormField'
+import { setupAdmin, checkAdminExists } from '../../api/auth'
+import { useAuth } from '../../hooks/useAuth'
 import './Setup.css'
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Setup() {
   const navigate = useNavigate()
+  const { setUser } = useAuth()
   const [form, setForm] = useState({ nombre: '', apellido: '', telefono: '', correo: '', password: '' })
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    checkAdminExists()
+      .then(exists => {
+        if (exists) navigate('/admin/login')
+      })
+      .catch(() => {})
+  }, [])
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
+    setError('')
+
     if (!form.nombre || !form.apellido || !form.telefono || !form.correo || !form.password) {
       setError('Completa todos los campos.')
       return
     }
-    localStorage.setItem('encom_admin', JSON.stringify(form))
-    navigate('/admin/login')
+    if (!EMAIL_REGEX.test(form.correo)) {
+      setError('Correo inválido.')
+      return
+    }
+    if (form.password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const data = await setupAdmin(form)
+      setUser(data.user)
+      navigate('/admin/dashboard')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -52,7 +84,9 @@ export default function Setup() {
           <FormField label="Contraseña"         name="password" value={form.password} onChange={handleChange} placeholder="••••••••"        type="password" />
 
           {error && <p className="auth-error">{error}</p>}
-          <button type="submit" className="auth-btn">Continuar</button>
+          <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? 'Creando...' : 'Continuar'}
+          </button>
         </form>
       </div>
     </div>

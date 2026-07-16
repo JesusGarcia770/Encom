@@ -1,16 +1,36 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import FormField from '../../Components/public/FormField'
+import { forgotPassword } from '../../api/auth'
 import './AuthPages.css'
 import './ForgotPassword.css'
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    if (email) setSent(true)
+    setError('')
+
+    if (!email || !EMAIL_REGEX.test(email)) {
+      setError('Ingresa un correo válido.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      await forgotPassword(email)
+      setSent(true)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (sent) {
@@ -53,7 +73,10 @@ export default function ForgotPassword() {
             type="email"
             placeholder="correo@ejemplo.com"
           />
-          <button type="submit" className="btn-auth">Enviar enlace</button>
+          {error && <p className="auth-error">{error}</p>}
+          <button type="submit" className="btn-auth" disabled={loading}>
+            {loading ? 'Enviando...' : 'Enviar enlace'}
+          </button>
         </form>
 
         <p className="auth-switch">

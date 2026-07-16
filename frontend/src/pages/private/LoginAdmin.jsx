@@ -1,27 +1,55 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router'
 import FormField from '../../Components/private/FormField'
+import { useAuth } from '../../hooks/useAuth'
+import { checkAdminExists } from '../../api/auth'
 import './Setup.css'
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function LoginAdmin() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ telefono: '', correo: '', password: '' })
+  const { login, logout } = useAuth()
+  const [form, setForm] = useState({ correo: '', password: '' })
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (!localStorage.getItem('encom_admin')) navigate('/admin/setup')
+    checkAdminExists()
+      .then(exists => {
+        if (!exists) navigate('/admin/setup')
+      })
+      .catch(() => {})
   }, [])
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    const admin = JSON.parse(localStorage.getItem('encom_admin') || '{}')
-    if (form.correo === admin.correo && form.password === admin.password && form.telefono === admin.telefono) {
-      sessionStorage.setItem('encom_admin_logged', '1')
+    setError('')
+
+    if (!form.correo || !form.password) {
+      setError('Completa todos los campos.')
+      return
+    }
+    if (!EMAIL_REGEX.test(form.correo)) {
+      setError('Correo inválido.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const user = await login(form.correo, form.password)
+      if (user.role !== 'admin') {
+        await logout()
+        setError('No tienes permisos de administrador.')
+        return
+      }
       navigate('/admin/dashboard')
-    } else {
-      setError('Credenciales incorrectas.')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -52,12 +80,13 @@ export default function LoginAdmin() {
           <h3>Login</h3>
           <p className="auth-subtitle">Bienvenido a Encom</p>
 
-          <FormField label="Número de teléfono" name="telefono" value={form.telefono} onChange={handleChange} placeholder="8879-0485"       />
-          <FormField label="Correo"             name="correo"   value={form.correo}   onChange={handleChange} placeholder="admin@gmail.com" type="email"    />
-          <FormField label="Contraseña"         name="password" value={form.password} onChange={handleChange} placeholder="••••••••"        type="password" />
+          <FormField label="Correo"     name="correo"   value={form.correo}   onChange={handleChange} placeholder="admin@gmail.com" type="email"    />
+          <FormField label="Contraseña" name="password" value={form.password} onChange={handleChange} placeholder="••••••••"        type="password" />
 
           {error && <p className="auth-error">{error}</p>}
-          <button type="submit" className="auth-btn">Continuar</button>
+          <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? 'Ingresando...' : 'Continuar'}
+          </button>
           <Link to="/admin/forgot-password" className="auth-forgot-link">¿Olvidaste tu contraseña?</Link>
         </form>
       </div>

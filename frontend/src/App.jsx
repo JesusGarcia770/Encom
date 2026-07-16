@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { CartProvider } from './context/CartContext'
+import { AuthProvider } from './context/AuthContext'
 
 // Páginas públicas
 import Home from './pages/public/Home'
@@ -11,6 +12,7 @@ import CheckoutReturn from './pages/public/CheckoutReturn'
 import Login from './pages/public/Login'
 import Register from './pages/public/Register'
 import ForgotPassword from './pages/public/ForgotPassword'
+import ResetPassword from './pages/public/ResetPassword'
 
 // Páginas privadas (admin)
 import Setup from './pages/private/Setup'
@@ -23,9 +25,11 @@ import Payments from './pages/private/Payments'
 import Users from './pages/private/Users'
 import Profile from './pages/private/Profile'
 import ForgotPasswordAdmin from './pages/private/ForgotPasswordAdmin'
+import ResetPasswordAdmin from './pages/private/ResetPasswordAdmin'
 
 // Layout del admin
 import AdminLayout from './Components/private/AdminLayout'
+import ProtectedRoute from './Components/private/ProtectedRoute'
 
 // Nav público
 import Nav from './Components/public/Nav'
@@ -33,6 +37,7 @@ import CartDrawer from './Components/public/CartDrawer'
 
 export default function App() {
   return (
+    <AuthProvider>
     <CartProvider>
       <BrowserRouter>
         <Routes>
@@ -46,24 +51,29 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* RUTAS ADMIN — sin layout */}
           <Route path="/admin/setup" element={<Setup />} />
           <Route path="/admin/login" element={<LoginAdmin />} />
           <Route path="/admin/forgot-password" element={<ForgotPasswordAdmin />} />
+          <Route path="/admin/reset-password/:token" element={<ResetPasswordAdmin />} />
 
-          {/* RUTAS ADMIN — con layout (sidebar + topbar) */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="products" element={<AdminProducts />} />
-            <Route path="categories" element={<Categories />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="payments" element={<Payments />} />
-            <Route path="users" element={<Users />} />
-            <Route path="profile" element={<Profile />} />
+          {/* RUTAS ADMIN — con layout (sidebar + topbar), protegidas */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="payments" element={<Payments />} />
+              <Route path="users" element={<Users />} />
+              <Route path="profile" element={<Profile />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
     </CartProvider>
+    </AuthProvider>
   )
 }

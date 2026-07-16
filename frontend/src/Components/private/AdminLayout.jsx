@@ -1,13 +1,19 @@
 import { Link, useLocation, Outlet, useNavigate } from 'react-router'
+import { useAuth } from '../../hooks/useAuth'
 import './AdminLayout.css'
 
 export default function AdminLayout() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { user, logout } = useAuth()
   const isActive = (path) => location.pathname === path
 
-  const handleLogout = () => {
-    // aquí va la lógica de logout
+  const initials = user?.name
+    ? user.name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase()
+    : ''
+
+  const handleLogout = async () => {
+    await logout()
     navigate('/admin/login')
   }
 
@@ -106,9 +112,9 @@ export default function AdminLayout() {
               </svg>
             </button>
             <div className="topbar-user" onClick={() => navigate('/admin/profile')}>
-              <div className="user-avatar">JG</div>
+              <div className="user-avatar">{initials}</div>
               <div className="user-info">
-                <strong>Jesus Garcia</strong>
+                <strong>{user?.name}</strong>
                 <span>Admin panel</span>
               </div>
             </div>

@@ -121,6 +121,17 @@
 }
 .auth-link span { color: #0057D9; font-weight: 600; }
 
+.auth-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
 .btn-auth {
   width: 100%;
   padding: 13px;

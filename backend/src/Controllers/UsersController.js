@@ -1,4 +1,4 @@
-import users from "../Models/users.js"
+import bcrypt from "bcryptjs"
 import usersModel from "../Models/users.js"
 
 const usersController = {}
@@ -15,23 +15,23 @@ usersController.getUsers = async (req, res) => {
 
 usersController.updateUser = async (req, res) => {
     try {
-        const {name, email, password} = req.body
+        const name = req.body.name?.trim()
+        const email = req.body.email?.trim()
+        const password = req.body.password
 
-        name?.trim()
-        email?.trim()
-
-        if (!name || !email || !password) {
+        if (!name || !email) {
             return res.status(400).json({message: "Fields required"})
         }
 
-        const userUpdated = await usersModel.findByIdAndUpdate(req.params.id, {
-            name,
-            email,
-            password
-        }, {new: true})
+        const update = {name, email}
+        if (password) {
+            update.password = await bcrypt.hash(password, 10)
+        }
 
-        if (!updateUser) {
-            return res.status(404).json("User not found")
+        const userUpdated = await usersModel.findByIdAndUpdate(req.params.id, update, {new: true})
+
+        if (!userUpdated) {
+            return res.status(404).json({message: "User not found"})
         }
 
         return res.status(200).json({message: "User updated", userUpdated})
